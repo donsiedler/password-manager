@@ -1,4 +1,4 @@
-from tkinter import Tk, Canvas, PhotoImage, Label, Entry, Button
+from tkinter import Tk, Canvas, PhotoImage, Label, Entry, Button, messagebox
 from tkinter.constants import END
 
 DEFAULT_EMAIL = "default_email@example.com"
@@ -6,16 +6,24 @@ DEFAULT_EMAIL = "default_email@example.com"
 
 # ---------------------------- SAVE DATA ------------------------------ #
 def save():
-
     website = website_input.get()
     login = login_input.get()
     password = password_input.get()
 
-    with open("data.txt", "a") as file:
-        file.write(f"{website} | {login} | {password}\n")
+    if website == "" or password == "":
+        messagebox.showinfo(title="Oops", message="Please don't leave any fields emtpy!")
+        return
 
-    website_input.delete(0, END)
-    password_input.delete(0, END)
+    is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \n"
+                                                          f"Login: {login} \n"
+                                                          f"Password: {password} \n"
+                                                          f"Is it ok to save?")
+    if is_ok:
+        with open("data.txt", "a") as file:
+            file.write(f"{website} | {login} | {password}\n")
+
+        website_input.delete(0, END)
+        password_input.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
