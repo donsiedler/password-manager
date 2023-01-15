@@ -1,7 +1,22 @@
 from tkinter import Tk, Canvas, PhotoImage, Label, Entry, Button
-
+from tkinter.constants import END
 
 DEFAULT_EMAIL = "default_email@example.com"
+
+
+# ---------------------------- SAVE DATA ------------------------------ #
+def save():
+    with open("data.txt", "a") as file:
+        website = website_input.get()
+        login = login_input.get()
+        password = password_input.get()
+
+        file.write(f"{website} | {login} | {password}\n")
+
+        website_input.delete(0, END)
+        password_input.delete(0, END)
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
@@ -34,7 +49,7 @@ password_input.grid(row=3, column=1, sticky="EW")
 # Buttons
 generate_password_btn = Button(text="Generate Password")
 generate_password_btn.grid(row=3, column=2, sticky="EW")
-add_password_btn = Button(text="Add", width=36)
+add_password_btn = Button(text="Add", width=36, command=save)
 add_password_btn.grid(row=4, column=1, columnspan=2, sticky="EW")
 
 window.mainloop()
