@@ -6,15 +6,16 @@ DEFAULT_EMAIL = "default_email@example.com"
 
 # ---------------------------- SAVE DATA ------------------------------ #
 def save():
-    with open("data.txt", "a") as file:
-        website = website_input.get()
-        login = login_input.get()
-        password = password_input.get()
 
+    website = website_input.get()
+    login = login_input.get()
+    password = password_input.get()
+
+    with open("data.txt", "a") as file:
         file.write(f"{website} | {login} | {password}\n")
 
-        website_input.delete(0, END)
-        password_input.delete(0, END)
+    website_input.delete(0, END)
+    password_input.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
