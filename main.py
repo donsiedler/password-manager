@@ -1,5 +1,7 @@
 from tkinter import Tk, Canvas, PhotoImage, Label, Entry, Button
 
+
+DEFAULT_EMAIL = "default_email@example.com"
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
@@ -22,8 +24,10 @@ password_label.grid(row=3, column=0)
 # Entries
 website_input = Entry(width=35)
 website_input.grid(row=1, column=1, columnspan=2, sticky="EW")
+website_input.focus()
 login_input = Entry(width=35)
 login_input.grid(row=2, column=1, columnspan=2, sticky="EW")
+login_input.insert(0, DEFAULT_EMAIL)
 password_input = Entry(width=21)
 password_input.grid(row=3, column=1, sticky="EW")
 
