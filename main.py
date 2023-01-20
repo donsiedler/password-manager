@@ -1,3 +1,4 @@
+import pyperclip
 from random import randint, shuffle, choice
 from tkinter import Tk, Canvas, PhotoImage, Label, Entry, Button, messagebox
 from tkinter.constants import END
@@ -24,6 +25,7 @@ def generate_password():
     password = "".join(password_list)
     password_input.delete(0, END)
     password_input.insert(0, password)
+    pyperclip.copy(password)
 
 
 # ---------------------------- SAVE DATA ------------------------------ #
