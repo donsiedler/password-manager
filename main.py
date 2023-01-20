@@ -1,3 +1,4 @@
+import json
 import pyperclip
 from random import randint, shuffle, choice
 from tkinter import Tk, Canvas, PhotoImage, Label, Entry, Button, messagebox
@@ -33,6 +34,12 @@ def save():
     website = website_input.get()
     login = login_input.get()
     password = password_input.get()
+    new_data = {
+        website: {
+            "login": login,
+            "password": password,
+        }
+    }
 
     if website == "" or password == "":
         messagebox.showinfo(title="Oops", message="Please don't leave any fields emtpy!")
@@ -43,11 +50,19 @@ def save():
                                                           f"Password: {password} \n"
                                                           f"Is it ok to save?")
     if is_ok:
-        with open("data.txt", "a") as file:
-            file.write(f"{website} | {login} | {password}\n")
-
-        website_input.delete(0, END)
-        password_input.delete(0, END)
+        try:
+            with open("data.json", "r") as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            with open("data.json", "w") as file:
+                json.dump(new_data, file, indent=4)
+        else:
+            data.update(new_data)
+            with open("data.json", "w") as file:
+                json.dump(data, file, indent=4)
+        finally:
+            website_input.delete(0, END)
+            password_input.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
