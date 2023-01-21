@@ -65,6 +65,7 @@ def save():
             password_input.delete(0, END)
 
 
+# -------------------------- FIND PASSWORD ---------------------------- #
 def find_password():
     website = website_input.get()
     try:
@@ -73,13 +74,13 @@ def find_password():
     except FileNotFoundError:
         messagebox.showinfo(title="Oops", message="No Data File Found")
     else:
-        try:
-            login_data = data[website]
-        except KeyError:
-            messagebox.showinfo(title="Oops", message=f"No details for the website {website} exists.")
+        if website in data:
+            login = data[website]["login"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"Login: {login}\n"
+                                                       f"Password: {password}")
         else:
-            messagebox.showinfo(title=website, message=f"Login: {login_data['login']}\n"
-                                                       f"Password: {login_data['password']}")
+            messagebox.showinfo(title="Oops", message=f"No details for {website} exists.")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
