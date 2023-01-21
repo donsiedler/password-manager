@@ -65,6 +65,23 @@ def save():
             password_input.delete(0, END)
 
 
+def find_password():
+    website = website_input.get()
+    try:
+        with open("data.json", "r") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Oops", message="No Data File Found")
+    else:
+        try:
+            login_data = data[website]
+        except KeyError:
+            messagebox.showinfo(title="Oops", message=f"No details for the website {website} exists.")
+        else:
+            messagebox.showinfo(title=website, message=f"Login: {login_data['login']}\n"
+                                                       f"Password: {login_data['password']}")
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
@@ -99,7 +116,7 @@ generate_password_btn = Button(text="Generate Password", command=generate_passwo
 generate_password_btn.grid(row=3, column=2, sticky="EW")
 add_password_btn = Button(text="Add", width=36, command=save)
 add_password_btn.grid(row=4, column=1, columnspan=2, sticky="EW")
-search_password_btn = Button(text="Search")
+search_password_btn = Button(text="Search", command=find_password)
 search_password_btn.grid(row=1, column=2, sticky="EW")
 
 window.mainloop()
